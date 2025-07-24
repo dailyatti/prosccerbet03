@@ -7,6 +7,7 @@ import { Dashboard } from './components/Dashboard/Dashboard';
 import { PromptGenerator } from './components/Tools/PromptGenerator';
 import { ArbitrageCalculator } from './components/Tools/ArbitrageCalculator';
 import { VipTips } from './components/Tools/VipTips';
+import { SimpleAdmin } from './components/Admin/SimpleAdmin';
 
 import { FreeTips } from './components/Tips/FreeTips';
 import { LandingPage } from './components/Landing/LandingPage';
@@ -198,6 +199,8 @@ function AppContent() {
         return <VipTips />;
       case 'free-tips':
         return <FreeTips />;
+      case 'admin':
+        return <SimpleAdmin />;
 
       default:
         return <Dashboard />;

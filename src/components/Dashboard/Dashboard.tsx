@@ -6,7 +6,8 @@ import { useSubscriptionStatus, hasPremiumAccess } from '../../lib/dateUtils';
 import { CountdownTimer, CompactCountdown } from '../UI/CountdownTimer';
 import { NotificationSystem, useCountdownNotifications } from '../UI/NotificationSystem';
 import { StripeCheckout } from '../Payment/StripeCheckout';
-import { getUserSubscription, formatCurrency, hasStripeAccess } from '../../lib/stripe';
+import { formatCurrency, hasStripeAccess } from '../../lib/stripe';
+import { isStripeConfigured } from '../../lib/stripe-direct';
 import { STRIPE_PRODUCTS } from '../../stripe-config';
 
 export function Dashboard() {
@@ -24,16 +25,17 @@ export function Dashboard() {
   // Use countdown notifications
   const { notifications, removeNotification, notifyExpiringSoon, notifyExpired } = useCountdownNotifications();
 
-  // Check Stripe subscription status
+  // Check Stripe subscription status (simplified for free tier)
   useEffect(() => {
     const checkStripeSubscription = async () => {
-      if (user && user.stripe_customer_id) {
-        try {
-          const subscription = await getUserSubscription();
-          setStripeSubscription(subscription);
-        } catch (error) {
-          console.error('Error checking Stripe subscription:', error);
-        }
+      // For free Supabase tier, we'll use local subscription data
+      if (user && user.subscription_status === 'active') {
+        setStripeSubscription({
+          subscription: {
+            status: 'active',
+            current_period_end: user.subscription_expires_at ? new Date(user.subscription_expires_at).getTime() / 1000 : null
+          }
+        });
       }
       setStripeLoading(false);
     };

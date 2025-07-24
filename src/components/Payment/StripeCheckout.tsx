@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Crown, Check, CreditCard, Shield, Zap, Users, X, Euro, Calendar, Star } from 'lucide-react';
-import { createCheckoutSession, formatCurrency } from '../../lib/stripe';
+import { formatCurrency } from '../../lib/stripe';
+import { redirectToStripeCheckout, isStripeConfigured } from '../../lib/stripe-direct';
 import { STRIPE_PRODUCTS, getTrialInfo } from '../../stripe-config';
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -25,16 +26,16 @@ export function StripeCheckout({ onClose, preselectedPlan }: StripeCheckoutProps
       return;
     }
 
+    if (!isStripeConfigured()) {
+      setError('Stripe is not configured. Please contact support.');
+      return;
+    }
+
     setLoading(true);
     setError('');
 
     try {
-      await createCheckoutSession(
-        product.priceId, 
-        product.mode,
-        `${window.location.origin}/#success`,
-        `${window.location.origin}/#dashboard`
-      );
+      await redirectToStripeCheckout(product.priceId);
     } catch (err: any) {
       setError(err.message || 'Failed to start checkout process');
       setLoading(false);
