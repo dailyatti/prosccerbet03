@@ -1,0 +1,12 @@
+# Supabase Configuration - Copy these to your .env.local file
+
+VITE_SUPABASE_URL=https://yrjkfpmcvdwbrgkgqgcwi.supabase.co
+VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlyamtmcG1jdmR3YnJna3FnY3dpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMyOTU2NTgsImV4cCI6MjA2ODg3MTY1OH0.1q1z1_0kD_ijRTM8YKH6_FgSs2lgWw5mUj6q8FNwWCk
+
+# Service Role Key (for backend only - DO NOT use in frontend)
+SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlyamtmcG1jdmR3YnJna3FnY3dpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1MzI5NTY1OCwiZXhwIjoyMDY4ODcxNjU4fQ.o04SUxiTa1D3uIGpGbUK-KA73W_MJwy7s9eFYMnTFKo
+
+# Instructions:
+# 1. Create a .env.local file in the project root
+# 2. Copy the VITE_ variables above to your .env.local file
+# 3. Add your Stripe keys when you have them 
