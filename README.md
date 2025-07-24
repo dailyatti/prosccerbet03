@@ -48,11 +48,15 @@ A comprehensive platform providing AI-powered tools for sports betting professio
    
    Edit `.env.local` with your actual values:
    ```env
-   VITE_SUPABASE_URL=your_supabase_url
-   VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+   VITE_SUPABASE_URL=https://yrjkfpmcvdwbrgkgqgcwi.supabase.co
+   VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlyamtmcG1jdmR3YnJna3FnY3dpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMyOTU2NTgsImV4cCI6MjA2ODg3MTY1OH0.1q1z1_0kD_ijRTM8YKH6_FgSs2lgWw5mUj6q8FNwWCk
    VITE_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
    VITE_STRIPE_PUBLISHABLE_KEY_TEST=your_stripe_test_publishable_key
+   VITE_APP_NAME=ProSoft Hub
+   VITE_APP_VERSION=1.0.0
    ```
+
+   **Note:** The Supabase configuration is already set up. You only need to add your Stripe keys.
 
 4. **Supabase Setup**
    - Create a new Supabase project at https://supabase.com

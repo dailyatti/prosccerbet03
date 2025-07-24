@@ -42,6 +42,8 @@ VITE_APP_NAME=ProSoft Hub
 VITE_APP_VERSION=1.0.0
 ```
 
+**Megjegyzés:** A Supabase konfiguráció már be van állítva. Csak a Stripe kulcsokat kell hozzáadnod.
+
 ### 4. Fejlesztői Szerver Indítása
 
 ```bash
