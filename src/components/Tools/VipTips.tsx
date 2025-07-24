@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Crown, TrendingUp, Clock, User, Star, Filter, Calendar, Trophy } from 'lucide-react';
+import { Crown, TrendingUp, Clock, User, Star, Filter, Calendar, Trophy, Lock, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../contexts/AuthContext';
 import { VipTip } from '../../types';
+import { getUserAccessLevel, hasActiveSubscription, hasTrialAccess } from '../../lib/stripe';
 
 // Check if Supabase is properly configured
 const isSupabaseConfigured = () => {
@@ -97,6 +98,60 @@ export function VipTips() {
   const [loading, setLoading] = useState(true);
   const [selectedSport, setSelectedSport] = useState('all');
   const [selectedConfidence, setSelectedConfidence] = useState('all');
+
+  // Check access level
+  const hasAccess = hasActiveSubscription(user) || hasTrialAccess(user);
+
+  // Access control component
+  if (!hasAccess) {
+    return (
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center px-4">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="max-w-md mx-auto bg-gray-800 rounded-xl shadow-xl p-8 text-center border border-gray-700"
+        >
+          <div className="mb-6">
+            <div className="w-16 h-16 bg-yellow-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Lock className="w-8 h-8 text-yellow-400" />
+            </div>
+            <h2 className="text-2xl font-bold text-white mb-2">Prémium Eszköz</h2>
+            <p className="text-gray-400">
+              A VIP tippek csak VIP előfizető számára érhetők el.
+            </p>
+          </div>
+          <div className="space-y-4">
+            {!user ? (
+              <button
+                onClick={() => window.location.hash = '#signup'}
+                className="bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700 text-white font-medium py-3 px-6 rounded-lg transition-colors inline-block w-full flex items-center justify-center space-x-2"
+              >
+                <span>Regisztráció</span>
+                <ArrowRight className="h-4 w-4" />
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  const event = new CustomEvent('openStripeCheckout');
+                  window.dispatchEvent(event);
+                }}
+                className="bg-gradient-to-r from-yellow-600 to-orange-600 hover:from-yellow-700 hover:to-orange-700 text-white font-medium py-3 px-6 rounded-lg transition-colors inline-block w-full flex items-center justify-center space-x-2"
+              >
+                <Crown className="h-4 w-4" />
+                <span>VIP Előfizetés</span>
+              </button>
+            )}
+            <button
+              onClick={() => window.location.hash = '#dashboard'}
+              className="block w-full text-gray-400 hover:text-white transition-colors"
+            >
+              Vissza a Dashboard-hoz
+            </button>
+          </div>
+        </motion.div>
+      </div>
+    );
+  }
 
   useEffect(() => {
     fetchTips();

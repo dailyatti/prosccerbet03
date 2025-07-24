@@ -66,15 +66,7 @@ export function Header() {
                     <Crown className="h-4 w-4 text-yellow-400" />
                     <span>VIP Tips</span>
                   </button>
-                  {user.is_admin && (
-                    <button 
-                      onClick={() => window.location.hash = '#admin'} 
-                      className="text-blue-400 hover:text-blue-300 px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center space-x-1"
-                    >
-                      <Settings className="h-4 w-4" />
-                      <span>Admin</span>
-                    </button>
-                  )}
+
                 </>
               )}
             </div>
@@ -209,17 +201,7 @@ export function Header() {
                   >
                     Ingyenes Tippek
                   </button>
-                  {user.is_admin && (
-                    <button 
-                      onClick={() => {
-                        window.location.hash = '#admin';
-                        setIsMenuOpen(false);
-                      }} 
-                      className="text-blue-400 hover:text-blue-300 block px-3 py-2 rounded-md text-base font-medium w-full text-left"
-                    >
-                      Admin
-                    </button>
-                  )}
+
                   <button
                     onClick={handleSignOut}
                     className="text-red-400 hover:text-red-300 block px-3 py-2 rounded-md text-base font-medium w-full text-left"
